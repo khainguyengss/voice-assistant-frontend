@@ -1,6 +1,7 @@
 "use client";
 
 import { CloseIcon } from "@/components/CloseIcon";
+import { DtmfNumpad } from "@/components/DtmfNumpad";
 import { NoAgentNotification } from "@/components/NoAgentNotification";
 import TranscriptionView from "@/components/TranscriptionView";
 import {
@@ -122,10 +123,15 @@ function ControlBar() {
               options={{ minHeight: 12 }}
             />
             <div className="flex items-center">
-              <VoiceAssistantControlBar controls={{ leave: false }} />
-              <DisconnectButton>
-                <CloseIcon />
-              </DisconnectButton>
+              <div className="absolute bottom-8 right-0 flex flex-col gap-2">
+                <DtmfNumpad className="mx-auto" />
+                <div className="flex flex-row">
+                  <VoiceAssistantControlBar controls={{ leave: false }} />
+                  <DisconnectButton>
+                    <CloseIcon />
+                  </DisconnectButton>
+                </div>
+              </div>
             </div>
           </motion.div>
         )}
