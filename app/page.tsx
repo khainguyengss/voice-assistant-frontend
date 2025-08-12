@@ -10,6 +10,7 @@ import {
   RoomAudioRenderer,
   RoomContext,
   VoiceAssistantControlBar,
+  useConnectionState,
   useVoiceAssistant,
 } from "@livekit/components-react";
 import { useKrispNoiseFilter } from "@livekit/components-react/krisp";
@@ -103,10 +104,12 @@ function ControlBar() {
   }, []);
 
   const { state: agentState, audioTrack } = useVoiceAssistant();
+  const connectionState = useConnectionState();
 
   return (
     <div className="relative h-[100px]">
       <AnimatePresence>
+        {connectionState !== "disconnected" && <DtmfNumpad className="fixed bottom-0 mx-auto" />}
         {agentState !== "disconnected" && agentState !== "connecting" && (
           <motion.div
             initial={{ opacity: 0, top: "10px" }}
@@ -124,7 +127,6 @@ function ControlBar() {
             />
             <div className="flex items-center">
               <div className="absolute bottom-8 right-0 flex flex-col gap-2">
-                <DtmfNumpad className="mx-auto" />
                 <div className="flex flex-row">
                   <VoiceAssistantControlBar controls={{ leave: false }} />
                   <DisconnectButton>
